@@ -9,10 +9,10 @@
 
 {% if template contains 'index' or isGlobal and enabled %}
 <div class="p-3">
-    <h1 class="text-center">
+    <h1 class="text-center" data-cy="announcement-text">
         {{ text }} 
         {% if link != null and link != '' and url != null and url != '' %}
-          <a href="{{ url }}">{{ link }}</a>
+          <a href="{{ url }}" data-cy="announcement-link">{{ link }}</a>
         {% endif %}
     </h1>
 </div>
