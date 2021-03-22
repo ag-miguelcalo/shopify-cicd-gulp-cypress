@@ -1,41 +1,75 @@
-{% assign enabled %}
-{% assign showGlobal %}
-{% assign isHomepage %}
-{% assign shouldShow = enabled && (showGlobal || isHomepage)%}
-{% assign text %}
-{% assign hasLink %}
-{% assign textColor %}
-{% assign backgroundColor %}
+{% assign enabled = section.settings.enabled %}
+{% assign isGlobal = section.settings.isGlobal %}
+{% assign currentPage = page.url %}
+{% assign text = section.settings.text %}
+{% assign link = section.settings.link %}
+{% assign textColor = section.settings.textColor %}
+{% assign bgColor = section.settings.bgColor %}
+{% assign style = 'color: ' | append: textColor | append: '; background-color: ' | append: bgColor | append: ';' %}
 
-{% unless shouldShow %}
-    <div>
-        <h1>
-            {% if hasLink %}
-                <a href="{{ link }}">{{ text }}</a>
-            {% else %}
-            {% endif %}
-        </h1>
-    </div>
-{% endunless %}
+{% if template contains 'index' or isGlobal and enabled %}
+<div class="p-3">
+    <h1 class="text-center">
+        {% if link != null and link != '' %}
+          <a href="{{ link }}">{{ text }}</a>
+        {% else %}
+          {{ text }}
+        {% endif %}
+    </h1>
+</div>
+{% endif %}
 
-{% stylesheet %}
-  .announcement {
-    text color {{ textcolor }}
-    background-color {{ backgroundColor }}
-  }
-{% endstylesheet %}
+{% style %}
+.ag-announcement {
+  background-color: {{bgColor}} !important;
+}
+.ag-announcement h1 {
+  color: {{textColor}} !important;
+}
+.ag-announcement a {
+  color: {{textColor}} !important;
+}
+{% endstyle %}
 
 {% schema %}
 {
-    // name/id/class/tag
-
-    settings: [
-        text
-        link
-        text-color
-        bg-color
-        on/off
-        homepage only
-    ]
+  "name": "Announcement",
+  "class": "ag-announcement",
+  "settings": [
+    {
+      "id": "text",
+      "type": "text",
+      "label": "Text"
+    },
+    {
+      "id": "link",
+      "type": "text",
+      "label": "Link"
+    },
+    {
+      "id": "textColor",
+      "type": "color",
+      "label": "Text Colour",
+      "default": "#000"
+    },
+    {
+      "id": "bgColor",
+      "type": "color",
+      "label": "Background Colour",
+      "default": "#fff"
+    },
+    {
+      "id": "enabled",
+      "type": "checkbox",
+      "label": "Enable/Disable",
+      "default": true
+    },
+    {
+      "id": "isGlobal",
+      "type": "checkbox",
+      "label": "Global/Homepage only",
+      "default": true
+    }
+  ]
 }
 {% endschema %}
