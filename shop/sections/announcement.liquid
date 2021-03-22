@@ -1,3 +1,6 @@
+{% comment %}
+Retrieve all necessary page and section settings to render the expected announcement as per specification.
+{% endcomment %}
 {% assign enabled = section.settings.enabled %}
 {% assign isGlobal = section.settings.isGlobal %}
 {% assign currentPage = page.url %}
@@ -7,17 +10,43 @@
 {% assign textColor = section.settings.textColor %}
 {% assign bgColor = section.settings.bgColor %}
 
+{% comment %}
+Display announcement based on these conditions:
+- enabled
+- set to show globally
+- set to show on the home (index) page only
+
+Note: If you use multiple and or or operators, note that and operators will be evaluated first, 
+then or operators. You cannot use parentheses to simulate an order of operations and control 
+the order of operator evaluation. Parentheses are invalid characters within Liquid tags and 
+prevent your tags from working.
+
+This is why the template check explictly uses the or operator.
+{% endcomment %}
 {% if template contains 'index' or isGlobal and enabled %}
 <div class="p-3">
     <h1 class="text-center" data-cy="announcement-text">
-        {{ text }} 
+        {{ text }}
+        {% comment %}
+        Since link is an optional input, we will only show it if both the label and url are provided.
+        {% endcomment %}
         {% if link != null and link != '' and url != null and url != '' %}
           <a href="{{ url }}" data-cy="announcement-link">{{ link }}</a>
         {% endif %}
     </h1>
 </div>
-{% endif %}
 
+{% comment %}
+Here we're using style tag instead of stylesheet.
+The stylesheet tag does not evaluate handlebars, hence we use style instead and directly put the style definition along with the html.
+
+As a safety precaution, we wont be styling the section's container directly and instead use the DOM defined within the container, in this case we're using
+.ag-announcement, reason being:
+- we dont want it to render styles if the section has a toggle feature.
+- we dont want to override global definitions.
+- we are using native css since shopify is discontinuing scss support, ofloading css preprocessing to developer/agency preference.
+- we are defining them here instead of in our own scss infra, because of it's configurability.
+{% endcomment %}
 {% style %}
 .ag-announcement {
   background-color: {{bgColor}} !important;
@@ -30,6 +59,12 @@
 }
 {% endstyle %}
 
+{% endif %}
+
+{% comment %}
+Below defines the structure and controllable aspects of the section.
+These configurations define how the section is rendered and configured on the admin side.
+{% endcomment %}
 {% schema %}
 {
   "name": "Announcement",
