@@ -2,17 +2,17 @@
 {% assign isGlobal = section.settings.isGlobal %}
 {% assign currentPage = page.url %}
 {% assign text = section.settings.text %}
-{% assign link = section.settings.link %}
+{% assign link = section.settings.linkLabel %}
+{% assign url = section.settings.linkUrl %}
 {% assign textColor = section.settings.textColor %}
 {% assign bgColor = section.settings.bgColor %}
 
 {% if template contains 'index' or isGlobal and enabled %}
 <div class="p-3">
     <h1 class="text-center">
-        {% if link != null and link != '' %}
-          <a href="{{ link }}">{{ text }}</a>
-        {% else %}
-          {{ text }}
+        {{ text }} 
+        {% if link != null and link != '' and url != null and url != '' %}
+          <a href="{{ url }}">{{ link }}</a>
         {% endif %}
     </h1>
 </div>
@@ -38,12 +38,19 @@
     {
       "id": "text",
       "type": "text",
-      "label": "Text"
+      "label": "Text",
+      "placeholder": "Announcement text"
     },
     {
-      "id": "link",
+      "id": "linkLabel",
       "type": "text",
-      "label": "Link"
+      "label": "Link Label",
+      "placeholder": "Ex. Click here!"
+    },
+    {
+      "id": "linkUrl",
+      "type": "url",
+      "label": "Link URL"
     },
     {
       "id": "textColor",
