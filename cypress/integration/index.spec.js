@@ -9,7 +9,7 @@ context('Index Page', () => {
 
   describe('Announcement', () => {
     it('Should have announcement element', () => {
-      cy.get('.ag-announcement h1 a').should('have.text', 'My First Announcement!');
+      cy.get('.ag-announcement h1').should('exist');
     });
   });
 });
