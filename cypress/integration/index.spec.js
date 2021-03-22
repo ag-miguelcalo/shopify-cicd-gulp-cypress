@@ -3,10 +3,7 @@
 context('Index Page', () => {
   before(() => {
     cy.visit('/');
-
-    // these are development mode only, for password entry.
-    cy.get('input[type=password]').type('qqq111');
-    cy.get('button[type=submit]').click();
+    cy.shopifyBeforeAll();
   });
 
   describe('Announcement', () => {

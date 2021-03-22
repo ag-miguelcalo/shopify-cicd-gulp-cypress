@@ -23,3 +23,16 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('shopifyBeforeAll', () => { }); // default
+
+const env = Cypress.env('environment') || '';
+
+if (env === 'dev') {
+  Cypress.Commands.overwrite('shopifyBeforeAll', () => {
+    // these are development mode only, for password entry.
+    const password = Cypress.env('password')
+    cy.get('input[type=password]').type(password);
+    cy.get('button[type=submit]').click();
+  });
+}
