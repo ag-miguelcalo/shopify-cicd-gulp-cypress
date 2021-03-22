@@ -1,0 +1,41 @@
+{% assign enabled %}
+{% assign showGlobal %}
+{% assign isHomepage %}
+{% assign shouldShow = enabled && (showGlobal || isHomepage)%}
+{% assign text %}
+{% assign hasLink %}
+{% assign textColor %}
+{% assign backgroundColor %}
+
+{% unless shouldShow %}
+    <div>
+        <h1>
+            {% if hasLink %}
+                <a href="{{ link }}">{{ text }}</a>
+            {% else %}
+            {% endif %}
+        </h1>
+    </div>
+{% endunless %}
+
+{% stylesheet %}
+  .announcement {
+    text color {{ textcolor }}
+    background-color {{ backgroundColor }}
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+    // name/id/class/tag
+
+    settings: [
+        text
+        link
+        text-color
+        bg-color
+        on/off
+        homepage only
+    ]
+}
+{% endschema %}

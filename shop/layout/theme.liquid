@@ -13,6 +13,8 @@
 </head>
 <body>
 
+  {% section 'announcement' %}
+
   {% for link in linklists.main-menu.links %}
     {% assign child_list_handle = link.title | handleize %}
     {% if linklists[child_list_handle].links != blank %}
@@ -38,8 +40,10 @@
   {% endif %}
 
   <main role="main">
-  <h1 data-test="site-header">My Shopify Website Header</h1>
-    {{ content_for_layout }}
+    <div class="container">
+      <h1 data-test="site-header" class="text-center">My Shopify Website Header</h1>
+      {{ content_for_layout }}
+    </div>
   </main>
 </body>
 </html>
