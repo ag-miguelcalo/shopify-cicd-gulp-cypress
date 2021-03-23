@@ -8,6 +8,7 @@ Retrieve all necessary page and section settings to render the expected announce
 {% assign link = section.settings.linkLabel %}
 {% assign url = section.settings.linkUrl %}
 {% assign textColor = section.settings.textColor %}
+{% assign linkColor = section.settings.linkColor %}
 {% assign bgColor = section.settings.bgColor %}
 
 {% comment %}
@@ -55,7 +56,7 @@ As a safety precaution, we wont be styling the section's container directly and 
   color: {{textColor}} !important;
 }
 .ag-announcement a {
-  color: {{textColor}} !important;
+  color: {{linkColor}} !important;
 }
 {% endstyle %}
 
@@ -92,6 +93,12 @@ These configurations define how the section is rendered and configured on the ad
       "type": "color",
       "label": "Text Colour",
       "default": "#000"
+    },
+    {
+      "id": "linkColor",
+      "type": "color",
+      "label": "Link Colour",
+      "default": "#0000ff"
     },
     {
       "id": "bgColor",
