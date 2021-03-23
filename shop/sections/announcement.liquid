@@ -27,7 +27,7 @@ This is why the template check explictly uses the or operator.
 {% if enabled %}
   {% if template contains 'index' or isGlobal %}
   <div class="p-3">
-      <h1 class="text-center" data-cy="announcement-text">
+      <p class="text-center m-0 p-0" data-cy="announcement-text">
           {{ text }}
           {% comment %}
           Since link is an optional input, we will only show it if both the label and url are provided.
@@ -35,7 +35,7 @@ This is why the template check explictly uses the or operator.
           {% if link != null and link != '' and url != null and url != '' %}
             <a href="{{ url }}" data-cy="announcement-link">{{ link }}</a>
           {% endif %}
-      </h1>
+      </p>
   </div>
 
   {% comment %}
